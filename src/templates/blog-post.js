@@ -11,6 +11,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = get(this.props, 'data.contentfulBlogPost')
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    console.log(JSON.stringify(post.gallery))
 
     return (
       <Layout location={this.props.location} >
@@ -31,11 +32,6 @@ class BlogPostTemplate extends React.Component {
             <div
               dangerouslySetInnerHTML={{
                 __html: post.body.childMarkdownRemark.html,
-              }}
-            />
-            <div
-              dangerouslySetInnerHTML={{
-                __html: post.gallery,
               }}
             />
           </div>
@@ -65,6 +61,13 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+        }
+      }
+      gallery {
+        id
+        title
+        file {
+          url
         }
       }
     }
